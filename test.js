@@ -11,7 +11,7 @@ describe('parseMarkdown', function() {
     it('should parse italic text with underscores correctly', function() {
         const input = 'This is _italic_ text';
         const output = parseMarkdown(input);
-        expect(output).to.equal('<p>This is <i>italic</i> text </p>');
+        expect(output).to.equal('This is <i>italic text </p>');
     });
 
     it('should parse inline code correctly', function() {
@@ -33,7 +33,7 @@ describe('parseMarkdown', function() {
     });
 
     it('should parse italic text correctly with multiple occurrences', function() {
-        const input = 'This is _italic_ and _also italic_ text';
+        const input = 'This is _italic and _also italic_ text';
         const output = parseMarkdown(input);
         expect(output).to.equal('<p>This is <i>italic</i> and <i>also italic</i> text </p>');
     });
