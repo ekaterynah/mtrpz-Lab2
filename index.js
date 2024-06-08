@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 const fs = require('fs');
 const path = require('path');
 
@@ -14,19 +14,15 @@ function parseMarkdown(markdown) {
                 html += '</p>';
                 inParagraph = false;
             }
-            else {
-                html += '<p>';
-                inParagraph = true;
-            }
             continue;
         }
 
         if (line.startsWith('```')) {
             if (inPreformatted) {
-                html += '</pre>';
+                html += '</pre>\n';  // Додаємо новий рядок після закриваючого тега </pre>
                 inPreformatted = false;
             } else {
-                html += '<pre>';
+                html += '<pre>\n';
                 inPreformatted = true;
             }
             continue;
@@ -41,9 +37,19 @@ function parseMarkdown(markdown) {
                 .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') // Bold
                 .replace(/_(.*?)_/g, '<i>$1</i>') // Italic
                 .replace(/`(.*?)`/g, '<tt>$1</tt>'); // Monospaced
-        }
 
-        html += inPreformatted ? line + '\n' : line.trim() + ' ';
+            html += line.trim() + ' ';
+        } else {
+            html += line + '\n';
+        }
+    }
+
+    if (inParagraph) {
+        html += '</p>';
+    }
+
+    if (inPreformatted) {
+        html += '</pre>\n';  // Завершальний новий рядок
     }
 
     return html;
@@ -95,4 +101,10 @@ function main() {
     });
 }
 
-main();
+// Виклик main тільки якщо файл виконується безпосередньо
+if (require.main === module) {
+    main();
+}
+
+// Експорт функції для використання в тестах
+module.exports = { parseMarkdown };
