@@ -1,0 +1,16 @@
+{
+  "name": "markdown-parser",
+  "version": "1.0.0",
+  "description": "Markdown parser with ANSI and HTML output",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Ваше ім'я",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^9.0.0",
+    "chai": "^4.3.0"
+  }
+}
